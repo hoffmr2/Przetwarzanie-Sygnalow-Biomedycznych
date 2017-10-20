@@ -71,8 +71,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)..\..\bin\$(Configuration)\</OutDir>
     <TargetName>PomiarWzrostu</TargetName>
+    <ExecutablePath>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\bin\OpenCV;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include\opencv2;C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include\opencv;C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)..\..\bin\$(Configuration)\</OutDir>
+    <TargetName>PomiarWzrostu</TargetName>
+    <ExecutablePath>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\bin\OpenCV;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include\opencv2;C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include\opencv;C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)..\..\bin\$(Configuration)\</OutDir>
+    <TargetName>PomiarWzrostu</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)..\..\bin\$(Configuration)\</OutDir>
     <TargetName>PomiarWzrostu</TargetName>
   </PropertyGroup>
@@ -82,14 +96,23 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include\opencv2;C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include\opencv;C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\opencv2;$(SolutionDir)..\..\include\opencv;$(SolutionDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_aruco330d.lib;opencv_bgsegm330d.lib;opencv_bioinspired330d.lib;opencv_calib3d330d.lib;opencv_ccalib330d.lib;opencv_core330d.lib;opencv_datasets330d.lib;opencv_dnn330d.lib;opencv_dpm330d.lib;opencv_face330d.lib;opencv_features2d330d.lib;opencv_flann330d.lib;opencv_fuzzy330d.lib;opencv_hdf330d.lib;opencv_highgui330d.lib;opencv_imgcodecs330d.lib;opencv_imgproc330d.lib;opencv_line_descriptor330d.lib;opencv_ml330d.lib;opencv_objdetect330d.lib;opencv_optflow330d.lib;opencv_phase_unwrapping330d.lib;opencv_photo330d.lib;opencv_plot330d.lib;opencv_reg330d.lib;opencv_rgbd330d.lib;opencv_saliency330d.lib;opencv_shape330d.lib;opencv_stereo330d.lib;opencv_stitching330d.lib;opencv_structured_light330d.lib;opencv_superres330d.lib;opencv_surface_matching330d.lib;opencv_text330d.lib;opencv_tracking330d.lib;opencv_video330d.lib;opencv_videoio330d.lib;opencv_videostab330d.lib;opencv_xfeatures2d330d.lib;opencv_ximgproc330d.lib;opencv_xobjdetect330d.lib;opencv_xphoto330d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -99,10 +122,12 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include\opencv2;C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include\opencv;C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Users\MHofffmann\Documents\Repos\Przetwarzanie-Sygnalow-Biomedycznych\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -112,10 +137,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\opencv2;$(SolutionDir)..\..\include\opencv;$(SolutionDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_aruco330d.lib;opencv_bgsegm330d.lib;opencv_bioinspired330d.lib;opencv_calib3d330d.lib;opencv_ccalib330d.lib;opencv_core330d.lib;opencv_datasets330d.lib;opencv_dnn330d.lib;opencv_dpm330d.lib;opencv_face330d.lib;opencv_features2d330d.lib;opencv_flann330d.lib;opencv_fuzzy330d.lib;opencv_hdf330d.lib;opencv_highgui330d.lib;opencv_imgcodecs330d.lib;opencv_imgproc330d.lib;opencv_line_descriptor330d.lib;opencv_ml330d.lib;opencv_objdetect330d.lib;opencv_optflow330d.lib;opencv_phase_unwrapping330d.lib;opencv_photo330d.lib;opencv_plot330d.lib;opencv_reg330d.lib;opencv_rgbd330d.lib;opencv_saliency330d.lib;opencv_shape330d.lib;opencv_stereo330d.lib;opencv_stitching330d.lib;opencv_structured_light330d.lib;opencv_superres330d.lib;opencv_surface_matching330d.lib;opencv_text330d.lib;opencv_tracking330d.lib;opencv_video330d.lib;opencv_videoio330d.lib;opencv_videostab330d.lib;opencv_xfeatures2d330d.lib;opencv_ximgproc330d.lib;opencv_xobjdetect330d.lib;opencv_xphoto330d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
