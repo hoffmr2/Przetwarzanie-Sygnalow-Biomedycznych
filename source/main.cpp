@@ -20,7 +20,23 @@ int main(int, char**)
     cap >> frame; // get a new frame from camera
 
     cvtColor(frame, grey, cv::COLOR_BGR2GRAY);
-    imshow("human height", object_detector.Preprocessing(grey));
+    object_detector.Preprocessing(grey);
+    object_detector.FindCountours();
+    auto contours = object_detector.GetContours();
+
+    cv::Mat contourImage(frame.size(), CV_8UC3, cv::Scalar(0, 0, 0));
+    cv::Scalar colors[3];
+    colors[0] = cv::Scalar(255, 0, 0);
+    colors[1] = cv::Scalar(0, 255, 0);
+    colors[2] = cv::Scalar(0, 0, 255);
+    for (size_t idx = 0; idx < contours.size(); idx++) {
+      cv::drawContours(contourImage, contours, idx, colors[idx % 3]);
+    }
+
+    cv::imshow("human height", frame);
+    cvMoveWindow("human height", 0, 0);
+    cv::imshow("Contours", contourImage);
+    cvMoveWindow("Contours", 200, 0);
     if (waitKey(30) >= 0) break;
   }
   // the camera will be deinitialized automatically in VideoCapture destructor
