@@ -7,9 +7,9 @@ int main(int, char**)
 {
   objectDetector object_detector;
  
-  VideoCapture cap(0); // open the default camera
-  if (!cap.isOpened())  // check if we succeeded
-    return -1;
+ // VideoCapture cap(0); // open the default camera
+ // if (!cap.isOpened())  // check if we succeeded
+ //   return -1;
 
   namedWindow("human height", 1);
 
@@ -17,8 +17,8 @@ int main(int, char**)
   for (;;)
   {
     Mat frame, grey;
-    cap >> frame; // get a new frame from camera
-
+    frame = cv::imread("C:/Users/MHofffmann/Documents/Repos/Przetwarzanie-Sygnalow-Biomedycznych/res/test.jpg"); // get a new frame from camera
+    cv::resize(frame,frame, cv::Size(400, 300));
     cvtColor(frame, grey, cv::COLOR_BGR2GRAY);
     object_detector.Preprocessing(grey);
     object_detector.FindCountours();
@@ -30,7 +30,7 @@ int main(int, char**)
     colors[1] = cv::Scalar(0, 255, 0);
     colors[2] = cv::Scalar(0, 0, 255);
     for (size_t idx = 0; idx < contours.size(); idx++) {
-      cv::drawContours(contourImage, contours, idx, colors[idx % 3]);
+      cv::drawContours(contourImage, contours, idx, colors[0], CV_FILLED);
     }
 
     cv::imshow("human height", frame);

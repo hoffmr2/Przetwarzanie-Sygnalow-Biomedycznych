@@ -20,7 +20,7 @@ private:
   cv::Mat edged_;
   std::vector<std::vector<cv::Point> > contours_;
   const cv::Size gausian_filter_size_;
-  static const int gausian_filter_standard_deviation = 2;
+  static const int gausian_filter_standard_deviation = 1.5;
 };
 
 #endif // OBJECT_DETECTOR_H
