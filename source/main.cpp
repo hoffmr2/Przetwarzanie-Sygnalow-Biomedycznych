@@ -22,7 +22,7 @@ int main(int, char**)
     cvtColor(frame, grey, cv::COLOR_BGR2GRAY);
     object_detector.Preprocessing(grey);
     object_detector.FindObjects();
-
+    objectDetector::DrawHeightData(frame, 1.78);
    
 
     cv::imshow("human height", frame);

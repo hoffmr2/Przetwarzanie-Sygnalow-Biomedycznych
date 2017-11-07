@@ -18,6 +18,8 @@ public:
   inline cv::Mat GetObject() const { return object_; }
   inline cv::Mat GetReference() const { return reference_; }
 
+  static void DrawHeightData(cv::Mat& orginal_image, double height);
+
 private:
 
   cv::Mat edged_;

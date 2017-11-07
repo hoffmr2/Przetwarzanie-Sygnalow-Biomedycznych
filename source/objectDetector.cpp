@@ -51,3 +51,14 @@ void objectDetector::FindCountours()
   auto contourOutput = edged_.clone();
   cv::findContours(contourOutput, contours_, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
 }
+
+void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)
+{
+  std::stringstream ss;
+  ss << std::fixed << std::setprecision(2) << "Height: " <<height;
+  std::string height_data = ss.str();
+  auto origin = cv::Point(orginal_image.cols * 0.2, orginal_image.rows * 0.1);
+  auto font_scale = 1;
+  auto font_colour = cv::Scalar(0,0,0);
+  cv::putText(orginal_image, height_data, origin, cv::FONT_HERSHEY_PLAIN, font_scale, font_colour);
+}
