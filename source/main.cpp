@@ -17,7 +17,7 @@ int main(int, char**)
   for (;;)
   {
     Mat frame, grey;
-    frame = cv::imread("C:/Users/MHofffmann/Documents/Repos/Przetwarzanie-Sygnalow-Biomedycznych/res/test.jpg"); // get a new frame from camera
+    frame = cv::imread("../../../res/test.jpg"); // get a new frame from camera
     cv::resize(frame,frame, cv::Size(400, 300));
     cvtColor(frame, grey, cv::COLOR_BGR2GRAY);
     object_detector.Preprocessing(grey);
