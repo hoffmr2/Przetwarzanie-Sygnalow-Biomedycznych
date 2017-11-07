@@ -27,6 +27,22 @@ cv::Mat objectDetector::Preprocessing(cv::Mat& grey_scale_frame)
   return edged;
 }
 
+void objectDetector::FindObjects()
+{
+  FindCountours();
+
+  cv::Mat contour_image(edged_.size(), CV_8UC3, cv::Scalar(0, 0, 0));
+  cv::Scalar color = cv::Scalar(255, 0, 0);
+ 
+  for (size_t idx = 0; idx < contours_.size(); ++idx) 
+  {
+    cv::drawContours(contour_image, contours_, idx, color, CV_FILLED);
+  }
+
+  object_ = contour_image(cv::Range(0, contour_image.rows), cv::Range(0, contour_image.cols / 2));
+  reference_ = contour_image(cv::Range(0, contour_image.rows), cv::Range(contour_image.cols / 2, contour_image.cols));
+}
+
 void objectDetector::FindCountours()
 {
   /* check if we had ekstract edges */

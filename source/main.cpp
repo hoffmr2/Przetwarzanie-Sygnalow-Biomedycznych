@@ -21,22 +21,16 @@ int main(int, char**)
     cv::resize(frame,frame, cv::Size(400, 300));
     cvtColor(frame, grey, cv::COLOR_BGR2GRAY);
     object_detector.Preprocessing(grey);
-    object_detector.FindCountours();
-    auto contours = object_detector.GetContours();
+    object_detector.FindObjects();
 
-    cv::Mat contourImage(frame.size(), CV_8UC3, cv::Scalar(0, 0, 0));
-    cv::Scalar colors[3];
-    colors[0] = cv::Scalar(255, 0, 0);
-    colors[1] = cv::Scalar(0, 255, 0);
-    colors[2] = cv::Scalar(0, 0, 255);
-    for (size_t idx = 0; idx < contours.size(); idx++) {
-      cv::drawContours(contourImage, contours, idx, colors[0], CV_FILLED);
-    }
+   
 
     cv::imshow("human height", frame);
     cvMoveWindow("human height", 0, 0);
-    cv::imshow("Contours", contourImage);
-    cvMoveWindow("Contours", 200, 0);
+    cv::imshow("Human", object_detector.GetObject());
+    cvMoveWindow("Human", frame.cols, 0);
+    cv::imshow("Reference", object_detector.GetReference());
+    cvMoveWindow("Reference", 3 * frame.cols / 2, 0);
     if (waitKey(30) >= 0) break;
   }
   // the camera will be deinitialized automatically in VideoCapture destructor
