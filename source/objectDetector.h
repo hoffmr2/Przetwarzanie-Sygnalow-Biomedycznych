@@ -21,11 +21,12 @@ public:
 
   static void DrawHeightData(cv::Mat& orginal_image, double height);
 
-  const double A4_height_ = 29.7; // cm
 
 private:
 
-
+  static const int height = 297;//mm
+  int row, col;
+  
   cv::Mat edged_;
   cv::Mat object_;
   cv::Mat reference_;

@@ -6,8 +6,8 @@
 int row, col;
 
 objectDetector::objectDetector()
-  :
-    gausian_filter_size_(7,7),
+  : row(0), col(0),
+    gausian_filter_size_(7, 7),
     edged_()
 {
 }
@@ -55,18 +55,15 @@ void objectDetector::FindCountours()
 
 
 void objectDetector::FindImageSize()
-{
+{ 
   assert(reference_.empty() == false);
-
   auto end = false;
+
   for (int i = 0; i < reference_.rows && (!end); i++)
     for (int j = 0; j < reference_.cols && (!end); j++)
     {
-      cv::Scalar intensity = reference_.at<uchar>(i,j);
-      int blue = intensity.val[0];
-      if((intensity.val[0] || intensity.val[1] || intensity.val[2] || intensity.val[3]) == 1)
-        std::cout << intensity << " row: " << i << " col: " << j << std::endl;
-      if(blue == 255)
+      cv::Vec3b colour = reference_.at<cv::Vec3b>(i, j);
+      if(colour.val[0] == 255)
       {
         row = i; col = j;
         end = true;
@@ -74,7 +71,6 @@ void objectDetector::FindImageSize()
     }
   std::cout << row << " " << col << " " << std::endl;
 }
-
 
 void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)
 {
