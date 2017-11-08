@@ -6,8 +6,8 @@
 int row, col;
 
 objectDetector::objectDetector()
-  : row(0), col(0),
-    gausian_filter_size_(7, 7),
+  : 
+    gausian_filter_size_(7, 7), rowTop(0), colTop(0), rowBottom(0), colBottom(0),
     edged_()
 {
 }
@@ -53,6 +53,22 @@ void objectDetector::FindCountours()
   cv::findContours(contourOutput, contours_, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
 }
 
+void objectDetector::FindHumanSize()
+{
+  auto end = false;
+
+  for (int i = 0; i < object_.rows && (!end); i++)
+    for (int j = 0; j < object_.cols && (!end); j++)
+    {
+      cv::Vec3b colour = object_.at<cv::Vec3b>(i, j);
+      if (colour.val[0] == 255)
+      {
+        rowTopHuman = i; colTopHuman = j;
+        end = true;
+      }
+    }
+  std::cout << rowTopHuman << " " << colTopHuman << " " << std::endl;
+}
 
 void objectDetector::FindImageSize()
 { 
@@ -65,11 +81,28 @@ void objectDetector::FindImageSize()
       cv::Vec3b colour = reference_.at<cv::Vec3b>(i, j);
       if(colour.val[0] == 255)
       {
-        row = i; col = j;
+        rowTop = i; colTop = j;
         end = true;
       }
     }
-  std::cout << row << " " << col << " " << std::endl;
+
+  end = false;
+  for (int i = reference_.rows - 1; i >= 0 && (!end); i--)
+    for (int j = reference_.cols - 1; j >= 0 && (!end); j--)
+    {
+      cv::Vec3b colour = reference_.at<cv::Vec3b>(i, j);
+      if (colour.val[0] == 255)
+      {
+        rowBottom = i; colBottom = j;
+        end = true;
+      }
+    }
+
+  referenceObjectHeight = rowBottom - rowTop;
+
+  std::cout << "rowTop: " << rowTop << " colTop: " << colTop << " " << std::endl;
+  std::cout << "rowBottom: " << rowBottom << " colBottom: " << colBottom << " " << std::endl;
+  std::cout << "referenceObjectHeight: " << referenceObjectHeight << " colTop-colBottom: " << abs(colTop - colBottom) << std::endl;
 }
 
 void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)

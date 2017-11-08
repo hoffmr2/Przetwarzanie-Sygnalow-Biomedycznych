@@ -15,6 +15,7 @@ public:
   cv::Mat Preprocessing(cv::Mat& grey_scale_frame);
   void FindObjects();
   void FindCountours();
+  void FindHumanSize();
   void FindImageSize();
   inline cv::Mat GetObject() const { return object_; }
   inline cv::Mat GetReference() const { return reference_; }
@@ -23,16 +24,21 @@ public:
 
 
 private:
-
-  static const int height = 297;//mm
-  int row, col;
-  
+  const double height = 29.7;//cm
   cv::Mat edged_;
   cv::Mat object_;
   cv::Mat reference_;
   std::vector<std::vector<cv::Point> > contours_;
   const cv::Size gausian_filter_size_;
-  const double gausian_filter_standard_deviation = 1.0;
+  int rowTop;
+  int colTop;
+  int rowBottom;
+  int colBottom;
+  int rowTopHuman;
+  int colTopHuman;
+  int referenceObjectHeight;
+  double humanHeight;
+  static const int gausian_filter_standard_deviation = 1.5;
 };
 
 #endif // OBJECT_DETECTOR_H
