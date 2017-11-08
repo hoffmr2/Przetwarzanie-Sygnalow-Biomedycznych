@@ -3,13 +3,14 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 
+int row, col;
+
 objectDetector::objectDetector()
   :
     gausian_filter_size_(7,7),
     edged_()
 {
 }
-
 
 objectDetector::~objectDetector()
 {
@@ -52,6 +53,29 @@ void objectDetector::FindCountours()
   cv::findContours(contourOutput, contours_, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
 }
 
+
+void objectDetector::FindImageSize()
+{
+  assert(reference_.empty() == false);
+
+  auto end = false;
+  for (int i = 0; i < reference_.rows && (!end); i++)
+    for (int j = 0; j < reference_.cols && (!end); j++)
+    {
+      cv::Scalar intensity = reference_.at<uchar>(i,j);
+      int blue = intensity.val[0];
+      if((intensity.val[0] || intensity.val[1] || intensity.val[2] || intensity.val[3]) == 1)
+        std::cout << intensity << " row: " << i << " col: " << j << std::endl;
+      if(blue == 255)
+      {
+        row = i; col = j;
+        end = true;
+      }
+    }
+  std::cout << row << " " << col << " " << std::endl;
+}
+
+
 void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)
 {
   std::stringstream ss;
@@ -63,3 +87,4 @@ void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)
   cv::putText(orginal_image, height_data, origin, cv::FONT_HERSHEY_PLAIN, font_scale, font_colour);
   
 }
+
