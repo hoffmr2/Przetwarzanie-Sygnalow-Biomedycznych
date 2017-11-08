@@ -22,6 +22,7 @@ public:
 
 private:
 
+
   cv::Mat edged_;
   cv::Mat object_;
   cv::Mat reference_;

@@ -61,4 +61,5 @@ void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)
   auto font_scale = 1;
   auto font_colour = cv::Scalar(0,0,0);
   cv::putText(orginal_image, height_data, origin, cv::FONT_HERSHEY_PLAIN, font_scale, font_colour);
+  
 }
