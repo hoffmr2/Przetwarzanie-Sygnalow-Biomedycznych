@@ -20,6 +20,8 @@ public:
   inline cv::Mat GetObject() const { return object_; }
   inline cv::Mat GetReference() const { return reference_; }
 
+  static void DrawHeightData(cv::Mat& orginal_image, double height);
+
 private:
   static const int height = 297;//mm
   int row, col;
