@@ -3,13 +3,15 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 
+double height = 297;//mm
+int row, col;
+
 objectDetector::objectDetector()
   :
     gausian_filter_size_(7,7),
     edged_()
 {
 }
-
 
 objectDetector::~objectDetector()
 {
@@ -51,3 +53,53 @@ void objectDetector::FindCountours()
   auto contourOutput = edged_.clone();
   cv::findContours(contourOutput, contours_, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
 }
+
+void objectDetector::FindImageSize()
+{
+  int b, x = 0, y = 0, end = 0;
+  //unsigned char *input = (unsigned char*)(reference_.data);
+  
+  for (int i = 0; i < reference_.rows; i++)
+    for (int j = 0; j < reference_.cols; j++)
+    {
+      //b = input[reference_.step * j + i];
+      //if (b == 255)
+      //{
+      //  row = i; col = j;
+      //  end = 1;
+      //}
+      //cv::Point3_<uchar>* p = reference_.ptr<cv::Point3_<uchar> >(i, j);
+      //std::cout << static_cast<int>(p->x) << " " << std::endl;
+      cv::Scalar intensity = reference_.at<uchar>(i,j);
+      int blue = intensity.val[0];
+      if((intensity.val[0] || intensity.val[1] || intensity.val[2] || intensity.val[3]) == 1)
+        std::cout << intensity << " row: " << i << " col: " << j << std::endl;
+      if(blue == 255)
+      {
+        row = i; col = j;
+        end = 1;
+      }
+      if (end) break;
+    }
+  std::cout << row << " " << col << " " << std::endl;
+}
+
+//void objectDetector::FindImageSize(cv::Mat image)
+//{
+//  int b, x, y;
+//  unsigned char *input = (unsigned char*)(image.data);
+//  for (int i = 0; i < image.rows; i++)
+//    for (int j = 0; j < image.cols; j++)
+//    {
+//      b = input[image.step * j + i];
+//      y = image.step;
+//      if (b == 255)
+//      {
+//        x = input[image.step * j + i];
+//        row = i; col = j;
+//        break;
+//      }
+//    }
+//  std::cout << x << " " << y << std::endl;
+//  std::cout << row << " " << col << std::endl;
+//}

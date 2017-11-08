@@ -15,6 +15,8 @@ public:
   cv::Mat Preprocessing(cv::Mat& grey_scale_frame);
   void FindObjects();
   void FindCountours();
+  //void FindImageSize(cv::Mat);
+  void FindImageSize();
   inline cv::Mat GetObject() const { return object_; }
   inline cv::Mat GetReference() const { return reference_; }
 

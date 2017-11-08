@@ -31,6 +31,10 @@ int main(int, char**)
     cvMoveWindow("Human", frame.cols, 0);
     cv::imshow("Reference", object_detector.GetReference());
     cvMoveWindow("Reference", 3 * frame.cols / 2, 0);
+
+    //object_detector.FindImageSize(object_detector.GetReference());
+    object_detector.FindImageSize();
+
     if (waitKey(30) >= 0) break;
   }
   // the camera will be deinitialized automatically in VideoCapture destructor
