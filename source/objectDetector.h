@@ -21,7 +21,8 @@ public:
   inline cv::Mat GetReference() const { return reference_; }
 
 private:
-
+  static const int height = 297;//mm
+  int row, col;
   cv::Mat edged_;
   cv::Mat object_;
   cv::Mat reference_;
