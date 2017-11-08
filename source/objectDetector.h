@@ -22,6 +22,7 @@ public:
 
   static void DrawHeightData(cv::Mat& orginal_image, double height);
 
+
 private:
   const double height = 29.7;//cm
   cv::Mat edged_;

@@ -3,6 +3,8 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 
+int row, col;
+
 objectDetector::objectDetector()
   : 
     gausian_filter_size_(7, 7), rowTop(0), colTop(0), rowBottom(0), colBottom(0),
@@ -69,7 +71,8 @@ void objectDetector::FindHumanSize()
 }
 
 void objectDetector::FindImageSize()
-{  
+{ 
+  assert(reference_.empty() == false);
   auto end = false;
 
   for (int i = 0; i < reference_.rows && (!end); i++)
@@ -101,7 +104,7 @@ void objectDetector::FindImageSize()
   std::cout << "rowBottom: " << rowBottom << " colBottom: " << colBottom << " " << std::endl;
   std::cout << "referenceObjectHeight: " << referenceObjectHeight << " colTop-colBottom: " << abs(colTop - colBottom) << std::endl;
 }
-//
+
 void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)
 {
   std::stringstream ss;
@@ -111,4 +114,6 @@ void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)
   auto font_scale = 1;
   auto font_colour = cv::Scalar(0,0,0);
   cv::putText(orginal_image, height_data, origin, cv::FONT_HERSHEY_PLAIN, font_scale, font_colour);
+  
 }
+
