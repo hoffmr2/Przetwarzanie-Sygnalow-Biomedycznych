@@ -7,9 +7,9 @@ int main(int, char**)
 {
   objectDetector object_detector;
  
- // VideoCapture cap(0); // open the default camera
- // if (!cap.isOpened())  // check if we succeeded
- //   return -1;
+  VideoCapture cap(0); // open the default camera
+  if (!cap.isOpened())  // check if we succeeded
+    return -1;
 
   namedWindow("human height", 1);
 
@@ -17,12 +17,14 @@ int main(int, char**)
   for (;;)
   {
     Mat frame, grey;
-    frame = cv::imread("../../../res/test.jpg"); // get a new frame from camera
-    cv::resize(frame,frame, cv::Size(400, 300));
+    cap >> frame;
+   // frame = cv::imread("../../../res/test5.jpg"); // get a new frame from camera
+   // cv::resize(frame,frame, cv::Size(frame.cols / 7, frame.rows / 7));
     cvtColor(frame, grey, cv::COLOR_BGR2GRAY);
     object_detector.Preprocessing(grey);
     object_detector.FindObjects();
-    objectDetector::DrawHeightData(frame, 1.78);
+    auto human_height = object_detector.GetHumanHeight();
+    objectDetector::DrawHeightData(frame, human_height);
    
 
     cv::imshow("human height", frame);
@@ -31,9 +33,6 @@ int main(int, char**)
     cvMoveWindow("Human", frame.cols, 0);
     cv::imshow("Reference", object_detector.GetReference());
     cvMoveWindow("Reference", 3 * frame.cols / 2, 0);
-
-
-    object_detector.FindImageSize();
 
     if (waitKey(30) >= 0) break;
   }

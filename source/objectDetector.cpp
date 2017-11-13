@@ -55,6 +55,7 @@ void objectDetector::FindCountours()
 
 void objectDetector::FindHumanSize()
 {
+  assert(object_.empty() == false);
   auto end = false;
 
   for (int i = 0; i < object_.rows && (!end); i++)
@@ -68,6 +69,10 @@ void objectDetector::FindHumanSize()
       }
     }
   std::cout << rowTopHuman << " " << colTopHuman << " " << std::endl;
+
+  auto human_height_pixel = object_.rows - rowTopHuman;
+  humanHeight = static_cast<double>(human_height_pixel) * A4_height_ / static_cast<double>(referenceObjectHeight);
+
 }
 
 void objectDetector::FindImageSize()
@@ -87,7 +92,7 @@ void objectDetector::FindImageSize()
     }
 
   end = false;
-  for (int i = reference_.rows - 1; i >= 0 && (!end); i--)
+  for (int i = reference_.rows - reference_.rows / 5; i >= 0 && (!end); i--)
     for (int j = reference_.cols - 1; j >= 0 && (!end); j--)
     {
       cv::Vec3b colour = reference_.at<cv::Vec3b>(i, j);
@@ -105,13 +110,20 @@ void objectDetector::FindImageSize()
   std::cout << "referenceObjectHeight: " << referenceObjectHeight << " colTop-colBottom: " << abs(colTop - colBottom) << std::endl;
 }
 
+double objectDetector::GetHumanHeight()
+{
+  FindImageSize();
+  FindHumanSize();
+  return humanHeight;
+}
+
 void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)
 {
   std::stringstream ss;
   ss << std::fixed << std::setprecision(2) << "Height: " <<height;
   std::string height_data = ss.str();
-  auto origin = cv::Point(orginal_image.cols * 0.2, orginal_image.rows * 0.1);
-  auto font_scale = 1;
+  auto origin = cv::Point(orginal_image.cols * 0.5, orginal_image.rows * 0.1);
+  auto font_scale = 2;
   auto font_colour = cv::Scalar(0,0,0);
   cv::putText(orginal_image, height_data, origin, cv::FONT_HERSHEY_PLAIN, font_scale, font_colour);
   

@@ -17,6 +17,7 @@ public:
   void FindCountours();
   void FindHumanSize();
   void FindImageSize();
+  double GetHumanHeight();
   inline cv::Mat GetObject() const { return object_; }
   inline cv::Mat GetReference() const { return reference_; }
 
@@ -24,7 +25,7 @@ public:
 
 
 private:
-  const double height = 29.7;//cm
+  const double A4_height_ = 29.7;//cm
   cv::Mat edged_;
   cv::Mat object_;
   cv::Mat reference_;
