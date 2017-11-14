@@ -31,14 +31,14 @@ private:
   cv::Mat reference_;
   std::vector<std::vector<cv::Point> > contours_;
   const cv::Size gausian_filter_size_;
-  int rowTop;
-  int colTop;
-  int rowBottom;
-  int colBottom;
-  int rowTopHuman;
-  int colTopHuman;
-  int referenceObjectHeight;
-  double humanHeight;
+  int row_top_;
+  int col_top_;
+  int row_bottom_;
+  int col_bottom_;
+  int row_top_human;
+  int col_top_human_;
+  int reference_object_height_;
+  double human_height_;
   static const int gausian_filter_standard_deviation = 1.5;
 };
 

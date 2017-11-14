@@ -1,19 +1,17 @@
 #include "objectDetector.h"
-
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 
-int row, col;
-
 objectDetector::objectDetector()
   : 
-    gausian_filter_size_(7, 7), rowTop(0), colTop(0), rowBottom(0), colBottom(0),
+    gausian_filter_size_(7, 7), row_top_(0), col_top_(0), row_bottom_(0), col_bottom_(0),
     edged_()
 {
 }
 
 objectDetector::~objectDetector()
 {
+	// empty
 }
 
 cv::Mat objectDetector::Preprocessing(cv::Mat& grey_scale_frame)
@@ -64,14 +62,13 @@ void objectDetector::FindHumanSize()
       cv::Vec3b colour = object_.at<cv::Vec3b>(i, j);
       if (colour.val[0] == 255)
       {
-        rowTopHuman = i; colTopHuman = j;
+        row_top_human = i; col_top_human_ = j;
         end = true;
       }
     }
-  std::cout << rowTopHuman << " " << colTopHuman << " " << std::endl;
 
-  auto human_height_pixel = object_.rows - rowTopHuman;
-  humanHeight = static_cast<double>(human_height_pixel) * A4_height_ / static_cast<double>(referenceObjectHeight);
+  auto human_height_pixel = object_.rows - row_top_human;
+  human_height_ = static_cast<double>(human_height_pixel) * A4_height_ / static_cast<double>(reference_object_height_);
 
 }
 
@@ -86,7 +83,7 @@ void objectDetector::FindImageSize()
       cv::Vec3b colour = reference_.at<cv::Vec3b>(i, j);
       if(colour.val[0] == 255)
       {
-        rowTop = i; colTop = j;
+        row_top_ = i; col_top_ = j;
         end = true;
       }
     }
@@ -98,34 +95,36 @@ void objectDetector::FindImageSize()
       cv::Vec3b colour = reference_.at<cv::Vec3b>(i, j);
       if (colour.val[0] == 255)
       {
-        rowBottom = i; colBottom = j;
+        row_bottom_ = i; col_bottom_ = j;
         end = true;
       }
     }
 
-  referenceObjectHeight = rowBottom - rowTop;
+  reference_object_height_ = row_bottom_ - row_top_;
 
-  std::cout << "rowTop: " << rowTop << " colTop: " << colTop << " " << std::endl;
-  std::cout << "rowBottom: " << rowBottom << " colBottom: " << colBottom << " " << std::endl;
-  std::cout << "referenceObjectHeight: " << referenceObjectHeight << " colTop-colBottom: " << abs(colTop - colBottom) << std::endl;
 }
 
 double objectDetector::GetHumanHeight()
 {
   FindImageSize();
   FindHumanSize();
-  return humanHeight;
+  return human_height_;
 }
 
 void objectDetector::DrawHeightData(cv::Mat& orginal_image, double height)
 {
+  // draw height  
   std::stringstream ss;
   ss << std::fixed << std::setprecision(2) << "Height: " <<height;
   std::string height_data = ss.str();
-  auto origin = cv::Point(orginal_image.cols * 0.5, orginal_image.rows * 0.1);
+  auto origin = cv::Point(orginal_image.cols * 0.55, orginal_image.rows * 0.1);
   auto font_scale = 2;
   auto font_colour = cv::Scalar(0,0,0);
-  cv::putText(orginal_image, height_data, origin, cv::FONT_HERSHEY_PLAIN, font_scale, font_colour);
-  
+  cv::putText(orginal_image, height_data, origin, cv::FONT_HERSHEY_PLAIN, font_scale, font_colour);  
+
+  // Draw half line
+  auto begin_point = cv::Point(orginal_image.cols / 2, 0);
+  auto end_point = cv::Point(orginal_image.cols / 2, orginal_image.rows);
+  cv::line(orginal_image, begin_point, end_point, cv::Scalar(0, 0, 255));
 }
 

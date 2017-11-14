@@ -6,9 +6,15 @@ using namespace cv;
 int main(int, char**)
 {
   objectDetector object_detector;
+  bool external_camera = true;
  
-  VideoCapture cap(0); // open the default camera
+  VideoCapture cap(1); // open the external camera
   if (!cap.isOpened())  // check if we succeeded
+  {
+	  external_camera = false;
+	  cap = VideoCapture(0); // open default camera
+  }
+  if (!cap.isOpened())
     return -1;
 
   namedWindow("human height", 1);
@@ -18,8 +24,11 @@ int main(int, char**)
   {
     Mat frame, grey;
     cap >> frame;
-   // frame = cv::imread("../../../res/test5.jpg"); // get a new frame from camera
-   // cv::resize(frame,frame, cv::Size(frame.cols / 7, frame.rows / 7));
+
+	if (external_camera == true)
+	{
+		cv::rotate(frame, frame, ROTATE_180);
+	}
     cvtColor(frame, grey, cv::COLOR_BGR2GRAY);
     object_detector.Preprocessing(grey);
     object_detector.FindObjects();
@@ -29,10 +38,6 @@ int main(int, char**)
 
     cv::imshow("human height", frame);
     cvMoveWindow("human height", 0, 0);
-    cv::imshow("Human", object_detector.GetObject());
-    cvMoveWindow("Human", frame.cols, 0);
-    cv::imshow("Reference", object_detector.GetReference());
-    cvMoveWindow("Reference", 3 * frame.cols / 2, 0);
 
     if (waitKey(30) >= 0) break;
   }
